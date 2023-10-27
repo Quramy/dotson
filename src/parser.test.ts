@@ -8,10 +8,6 @@ describe(tokenize.name, () => {
     deepEqual(tokenize(""), [])
   })
 
-  test("Dollar", () => {
-    deepEqual(tokenize("$"), [{ type: "Dollar" }])
-  })
-
   test("Dot", () => {
     deepEqual(tokenize("a.b"), [
       { type: "Identifier", value: "a" },

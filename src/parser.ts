@@ -7,7 +7,7 @@ import type { Token } from "./types"
 // ChildAccessor         := "."Identifier
 // ArrayIndexAccessor    := "[" NumberIndex "]"
 // ArrayWildCardAccessor := "[" "*" "]"
-// Identifier            := RegExp([a-zA-Z][a-zA-Z0-9]*)
+// Identifier            := RegExp([a-zA-Z_\$][a-zA-Z0-9_\$]*)
 // NumberIndex           := RegExp([0-9]+)
 
 export type ArrayWildCardAccessorNode = {
@@ -55,12 +55,10 @@ export function tokenize(path: string): readonly Token[] {
   while (rest.length) {
     const currentLength = rest.length
     let regexpHit: null | undefined | RegExpExecArray
-    if ((regexpHit = scanWithRegExp(/^([a-zA-Z][a-zA-Z0-9]*)/))) {
+    if ((regexpHit = scanWithRegExp(/^([a-zA-Z_\$][a-zA-Z0-9_\$]*)/))) {
       tokens.push({ type: "Identifier", value: regexpHit[1] })
     } else if ((regexpHit = scanWithRegExp(/^(\d+)/))) {
       tokens.push({ type: "NumberIndex", value: parseInt(regexpHit[1], 10) })
-    } else if (scanWithString("$")) {
-      tokens.push({ type: "Dollar" })
     } else if (scanWithString("[")) {
       tokens.push({ type: "LeftBracket" })
     } else if (scanWithString("]")) {
@@ -81,7 +79,7 @@ export function tokenize(path: string): readonly Token[] {
 
 export function parsePath(tokens: readonly Token[]): RootNode {
   const [first, ...rest] = tokens
-  if (first.type !== "Dollar") {
+  if (first.type !== "Identifier" || first.value !== "$") {
     throw new SyntaxError("Unexpected token")
   }
 

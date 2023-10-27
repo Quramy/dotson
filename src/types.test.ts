@@ -1,6 +1,6 @@
-import type { AssertIs, AssertSub, TestSuite } from "type-assert-tool"
+import type { AssertIs, TestSuite } from "type-assert-tool"
 
-import type { PickFromPath, Tokenize } from "./types"
+import type { PickFromPath } from "./types"
 
 const json = {
   store: {
@@ -41,7 +41,7 @@ const json = {
 
 type JsonType = typeof json
 
-interface TypeTest extends TestSuite {
+export interface TypeTest extends TestSuite {
   "Root element": AssertIs<PickFromPath<JsonType, "$">, JsonType>
 
   "Dot-notated child": AssertIs<PickFromPath<JsonType, "$.store">, JsonType["store"]>

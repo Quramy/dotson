@@ -6,14 +6,22 @@
   "scripts": {
     "format": "npm run prettier -- --write",
     "prettier": "prettier .",
-    "test": "npm run tsc",
+    "lint": "npm run prettier -- --check && npm run tsc",
+    "test": "tsc && node --test dist",
     "tsc": "tsc --noEmit"
   },
-  "keywords": ["dot-notation", "json", "json-path", "typescript"],
+  "keywords": [
+    "dot-notation",
+    "json",
+    "json-path",
+    "typescript"
+  ],
   "author": "Quramy",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^20.8.9",
     "prettier": "3.0.3",
+    "ts-node": "^10.9.1",
     "type-assert-tool": "1.0.2",
     "typescript": "5.2.2"
   }

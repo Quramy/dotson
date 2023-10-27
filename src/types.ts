@@ -4,18 +4,25 @@ export type DeepPartial<TObj> = TObj extends object
     }
   : TObj
 
-type DollarToken = { type: "Dollar" }
-type AsteriskToken = { type: "Asterisk" }
-type DotToken = { type: "Dot" }
-type LBToken = { type: "LeftBracket" }
-type RBToken = { type: "RightBracket" }
-type NumberIndexToken<TIndex extends number> = {
+export type DollarToken = { type: "Dollar" }
+export type AsteriskToken = { type: "Asterisk" }
+export type DotToken = { type: "Dot" }
+export type LBToken = { type: "LeftBracket" }
+export type RBToken = { type: "RightBracket" }
+export type NumberIndexToken<TIndex extends number> = {
   type: "NumberIndex"
   value: TIndex
 }
-type IdToken<TName extends string> = { type: "Identifier"; value: TName }
+export type IdToken<TName extends string> = { type: "Identifier"; value: TName }
 
-type Token = DollarToken | AsteriskToken | LBToken | RBToken | NumberIndexToken<number> | IdToken<string>
+export type Token =
+  | DollarToken
+  | AsteriskToken
+  | DotToken
+  | LBToken
+  | RBToken
+  | NumberIndexToken<number>
+  | IdToken<string>
 
 // prettier-ignore
 export type Tokenize<T extends string> = 
